@@ -30,6 +30,14 @@ def scrape_wclc(url: str):
     resp.raise_for_status()
 
     soup = BeautifulSoup(resp.text, "lxml")
+
+    print(f"[scraper] Final URL: {resp.url}")
+    print(f"[scraper] Status: {resp.status_code}")
+    print(f"[scraper] Content-Type: {resp.headers.get('content-type')}")
+    print(f"[scraper] First 300 chars:\n{resp.text[:300]}")
+    print(f"[scraper] Contains 'dataTable'? {'dataTable' in resp.text}")
+    print(f"[scraper] Contains '<table'? {'<table' in resp.text.lower()}")
+
     scrape_ts = datetime.now(timezone.utc).isoformat()
 
     # WCLC uses <table class="dataTable" summary="Game Name - 21401">
