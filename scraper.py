@@ -24,6 +24,13 @@ def scrape_wclc(url: str):
 
     out_rows = []
     tables = soup.find_all("table")
+	
+print(f"Found {len(tables)} tables")
+
+if tables:
+    headers = [th.get_text(strip=True) for th in tables[0].find_all("th")]
+    print("First table headers:", headers)
+
 
     def table_header_text(table):
         ths = table.find_all("th")
