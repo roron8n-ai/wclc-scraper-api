@@ -1,0 +1,31 @@
+name: WCLC Scrape -> n8n
+
+on:
+  schedule:
+    - cron: "20 13 * * *"   # daily 13:20 UTC (adjust if you want)
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run scraper and POST to n8n
+        env:
+          WCLC_URL: ${{ secrets.WCLC_URL }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_TOKEN: ${{ secrets.N8N_TOKEN }}
+        run: |
+          python run_scrape.py
