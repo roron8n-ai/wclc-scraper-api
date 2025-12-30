@@ -1,7 +1,3 @@
-wclc-scraper-api/
-  app.py
-  scraper.py
-  requirements.txt
-  Procfile
-  README.md
-  .gitignore
+requests
+beautifulsoup4
+lxml
